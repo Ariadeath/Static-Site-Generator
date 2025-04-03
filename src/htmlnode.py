@@ -39,8 +39,3 @@ class LeafNode(HTMLNode):
         html += f">{self.value}</{self.tag}>"
 
         return html
-
-if __name__ == "__main__":
-    # Example Usage
-    node = LeafNode(value="Hello, world!", tag="p")
-    print(node.to_html())
