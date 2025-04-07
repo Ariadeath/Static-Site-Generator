@@ -1,6 +1,6 @@
 import unittest
 from textnode import TextNode, TextType
-from markdown_converter import split_nodes_delimiter
+from split_delimiter import split_nodes_delimiter
 
 class TestMarkdownConverter(unittest.TestCase):
     def test_bold(self):
