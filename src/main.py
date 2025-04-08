@@ -1,19 +1,28 @@
 from textnode import TextType, TextNode
 from htmlnode import HTMLNode
+import os
+import shutil
 
 def main():
-    text = "This is some anchor text"
-    text_type = TextType.LINK
-    url = "https://www.boot.dev"
-    example_node = TextNode(text, text_type, url)
-    print(example_node)
+    public_setup("static", "public")
+    copy_files("static", "public")   
 
-    props = {
-    "href": "https://www.google.com",
-    "target": "_blank",
-}
-    example_html = HTMLNode(None, None, None, props)
-    print(example_html)
+def public_setup(source_dir, dest_dir):
+    if os.path.exists(dest_dir):
+        shutil.rmtree(dest_dir)
+    os.mkdir(dest_dir)
+
+def copy_files(source_dir, dest_dir):
+    for item in os.listdir(source_dir):
+        source_path = os.path.join(source_dir, item)
+        dest_path = os.path.join(dest_dir, item)
+        if os.path.isfile(source_path):
+            print(f"Copying {item} from {source_path} to {dest_path}")
+            shutil.copy(source_path, dest_path)
+        else:
+            print(f"Copying {source_path} to {dest_path}")
+            os.mkdir(dest_path)
+            copy_files(source_path, dest_path)
 
 
 main()
