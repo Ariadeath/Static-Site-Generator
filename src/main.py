@@ -1,13 +1,15 @@
 import os
 import shutil
+from pathlib import Path
 from textnode import TextType, TextNode
 from htmlnode import HTMLNode
-from generator import generate_page
+from generator import generate_pages_recursive
 
 def main():
     public_setup("static", "public")
     copy_files("static", "public")
-    generate_page("content/index.md", "template.html", "public/index.html")   
+    template_content = Path("template.html").read_text()
+    generate_pages_recursive("content", template_content, "public")   
 
 def public_setup(source_dir, dest_dir):
     if os.path.exists(dest_dir):
