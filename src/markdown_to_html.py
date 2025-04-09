@@ -19,7 +19,19 @@ def markdown_to_html_node(markdown):
             paragraph_node = ParentNode("p", html_children)
             children.append(paragraph_node)
         elif block_type == BlockType.QUOTE:
-            html_children = text_to_children(block)
+            lines = block.split("\n")
+            cleaned_lines = []
+            for line in lines:
+                if line.startswith(">"):
+                    if line.startswith("> "):
+                        cleaned_lines.append(line[2:])
+                    else:
+                        cleaned_lines.append(line[1:])
+                else:
+                    cleaned_lines.append(line)
+            cleaned_block = "\n".join(cleaned_lines)
+
+            html_children = text_to_children(cleaned_block)
             quote_node = ParentNode("blockquote", html_children)
             children.append(quote_node)
         elif block_type == BlockType.CODE:

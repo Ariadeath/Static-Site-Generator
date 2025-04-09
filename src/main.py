@@ -1,11 +1,13 @@
-from textnode import TextType, TextNode
-from htmlnode import HTMLNode
 import os
 import shutil
+from textnode import TextType, TextNode
+from htmlnode import HTMLNode
+from generator import generate_page
 
 def main():
     public_setup("static", "public")
-    copy_files("static", "public")   
+    copy_files("static", "public")
+    generate_page("content/index.md", "template.html", "public/index.html")   
 
 def public_setup(source_dir, dest_dir):
     if os.path.exists(dest_dir):
@@ -23,6 +25,5 @@ def copy_files(source_dir, dest_dir):
             print(f"Copying {source_path} to {dest_path}")
             os.mkdir(dest_path)
             copy_files(source_path, dest_path)
-
 
 main()
